@@ -1,0 +1,26 @@
+{
+  "name": "productive-time-entries-importer",
+  "description": "Import time entries into productive",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run compile && npm run convert && npm run import",
+    "compile": "npm run format && tsc --rootDir src",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "convert": "npm run convert:csv && npm run convert:json",
+    "convert:csv": "java -jar tabula-1.0.5-jar-with-dependencies.jar --lattice -format CSV --batch time-entries",
+    "convert:json": "node build/csvtojson",
+    "import": "node build/importTimeEntries.js"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.3.0",
+    "@types/node": "^20.3.3",
+    "axios": "^1.4.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.3.1",
+    "luxon": "^3.3.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "author": "artur.sopelnik93@gmail.com",
+  "license": "UNLICENSED"
+}
